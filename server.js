@@ -15,7 +15,8 @@ var tokenPayload = {
     "iat": iat,             // ISSUED AT
     "exp": exp,             // EXPIRES AT
     "userName": userName,    // OUR USERS NAME
-    "userOtherValue": 'test information for user'
+    "userOtherValue": 'test information for user',
+    "userStatus": "xyz123"
 };
 
 
@@ -33,8 +34,9 @@ console.log('-----------------')
 // ATTEMPT TO DECODE THE JSON WEB TOKEN, REQUIRES WE HAVE THE TOKEN AND KEY
 try {
     var decoded = jwt.verify(token, key);
-    console.log(decoded)
+    //var decoded = jwt.verify(token, '23456');   // THROWS AND ERROR BACK BECAUSE WRONG KEY
+    console.log('Successfully validated token!');
+    console.log(decoded);
 } catch(err) {
-    console.log('ERROR validating token');
-    console.log(err.name + ': ' + err.message);
+    console.log('ERROR validating token! ' + err.name + ': ' + err.message);
 } 
