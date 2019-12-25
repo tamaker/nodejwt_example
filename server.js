@@ -1,11 +1,13 @@
+var dotenv = require('dotenv').config()
 var jwt = require('jsonwebtoken');
 var moment = require('moment');
 
 // KEY THAT
-var key = '12345ASDFas@%@$@#$adsfa9w9f9f9e9wetwt24234';
+var key = process.env.JWT_KEY;
 
 var iat = moment(new Date()).unix();
-var exp = moment(new Date()).add(1, 'hours').unix();
+//var exp = moment(new Date()).add(1, 'hours').unix();
+var exp = moment(new Date()).add(3, 'seconds').unix();
 
 var userName = 'mickey mouse';
 
@@ -34,9 +36,26 @@ console.log('-----------------')
 // ATTEMPT TO DECODE THE JSON WEB TOKEN, REQUIRES WE HAVE THE TOKEN AND KEY
 try {
     var decoded = jwt.verify(token, key);
+    // var decoded = jwt.verify('token', key);
     //var decoded = jwt.verify(token, '23456');   // THROWS AND ERROR BACK BECAUSE WRONG KEY
     console.log('Successfully validated token!');
     console.log(decoded);
 } catch(err) {
     console.log('ERROR validating token! ' + err.name + ': ' + err.message);
 } 
+
+
+setTimeout(function(){
+
+    try {
+        var decoded = jwt.verify(token, key);
+        // var decoded = jwt.verify('token', key);
+        //var decoded = jwt.verify(token, '23456');   // THROWS AND ERROR BACK BECAUSE WRONG KEY
+        console.log('Successfully validated token!');
+        console.log(decoded);
+    } catch(err) {
+        //console.log(decoded)
+        console.log('ERROR validating token! ' + err.name + ': ' + err.message);
+    } 
+
+}, 5000)
